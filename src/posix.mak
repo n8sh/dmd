@@ -104,6 +104,7 @@ ifeq ($(CXX_KIND), g++)
 BACK_WARNINGS += \
 	-Wno-unused-but-set-variable \
 	-Wno-implicit-fallthrough \
+	-Wno-c++11-narrowing \
 	-Wno-class-memaccess \
 	-Wno-uninitialized
 endif
@@ -120,7 +121,7 @@ WARNINGS += \
 endif
 else
 # Default Warnings
-WARNINGS := -Wno-deprecated -Wstrict-aliasing
+WARNINGS := -Wno-deprecated -Wstrict-aliasing -Wno-c++11-narrowing
 # Frontend specific
 DMD_WARNINGS := -Wuninitialized
 ROOT_WARNINGS :=

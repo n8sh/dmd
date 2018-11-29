@@ -1857,7 +1857,7 @@ elem *toElem(Expression *e, IRState *irs)
                 {
                     ts = symbol_genauto(Type_toCtype(t1));
                     int rtl;
-                    if (global.params.isLinux || global.params.isFreeBSD || global.params.isSolaris ||
+                    if (global.params.isLinux || global.params.isFreeBSD || global.params.isSolaris || global.params.isOpenBSD ||
                         I64 && global.params.isWindows)
                         rtl = RTLSYM__DINVARIANT;
                     else

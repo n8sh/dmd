@@ -88,6 +88,8 @@ export OS
 
 ifeq (freebsd,$(OS))
     SHELL=/usr/local/bin/bash
+else ifeq (openbsd,$(OS))
+    SHELL=/usr/local/bin/bash
 else ifeq (netbsd,$(OS))
     SHELL=/usr/pkg/bin/bash
 else
@@ -147,9 +149,9 @@ fail_compilation_tests=$(wildcard fail_compilation/*.d) $(wildcard fail_compilat
 fail_compilation_test_results=$(addsuffix .out,$(addprefix $(RESULTS_DIR)/,$(fail_compilation_tests)))
 
 # Disable D2 testsuite for DMD.
-#all: run_tests
-all:
-	$(QUIET) echo "Auto-tester tests disabled"
+all: run_tests
+#all:
+#	$(QUIET) echo "Auto-tester tests disabled"
 
 $(RESULTS_DIR)/runnable/%.d.out: runnable/%.d $(RESULTS_DIR)/.created $(RESULTS_DIR)/d_do_test$(EXE) $(DMD)
 	$(QUIET) $(RESULTS_DIR)/d_do_test $(<D) $* d
@@ -209,6 +211,6 @@ start_fail_compilation_tests: $(RESULTS_DIR)/.created $(RESULTS_DIR)/d_do_test$(
 $(RESULTS_DIR)/d_do_test$(EXE): d_do_test.d $(RESULTS_DIR)/.created
 	@echo "Building d_do_test tool"
 	@echo "OS: $(OS)"
-	$(QUIET)$(DMD) -conf= $(MODEL_FLAG) -unittest -run d_do_test.d -unittest
-	$(QUIET)$(DMD) -conf= $(MODEL_FLAG) -od$(RESULTS_DIR) -of$(RESULTS_DIR)$(DSEP)d_do_test$(EXE) d_do_test.d
+	$(QUIET)$(DMD) -fPIC -conf= $(MODEL_FLAG) -unittest -run d_do_test.d -unittest
+	$(QUIET)$(DMD) -fPIC -conf= $(MODEL_FLAG) -od$(RESULTS_DIR) -of$(RESULTS_DIR)$(DSEP)d_do_test$(EXE) d_do_test.d
 
